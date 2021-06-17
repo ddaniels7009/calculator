@@ -19,77 +19,87 @@ const divide = document.getElementById('divide');
 const multiply = document.getElementById('multiply');
 const equals = document.getElementById('equals');
 
-button0.addEventListener('click', function () { display("0"); holdingArea("0") });
-button1.addEventListener('click', function () { display("1"); holdingArea("1") });
-button2.addEventListener('click', function () { display("2"); holdingArea("2") });
-button3.addEventListener('click', function () { display("3"); holdingArea("3") });
-button4.addEventListener('click', function () { display("4"); holdingArea("4") });
-button5.addEventListener('click', function () { display("5"); holdingArea("5") });
-button6.addEventListener('click', function () { display("6"); holdingArea("6") });
-button7.addEventListener('click', function () { display("7"); holdingArea("7") });
-button8.addEventListener('click', function () { display("8"); holdingArea("8") });
-button9.addEventListener('click', function () { display("9"); holdingArea("9") });
+button0.addEventListener('click', function () { display("0"); gatherValues("0") });
+button1.addEventListener('click', function () { display("1"); gatherValues("1") });
+button2.addEventListener('click', function () { display("2"); gatherValues("2") });
+button3.addEventListener('click', function () { display("3"); gatherValues("3") });
+button4.addEventListener('click', function () { display("4"); gatherValues("4") });
+button5.addEventListener('click', function () { display("5"); gatherValues("5") });
+button6.addEventListener('click', function () { display("6"); gatherValues("6") });
+button7.addEventListener('click', function () { display("7"); gatherValues("7") });
+button8.addEventListener('click', function () { display("8"); gatherValues("8") });
+button9.addEventListener('click', function () { display("9"); gatherValues("9") });
 clear.addEventListener('click', function () { clearAll(); });
-plus.addEventListener('click', function () { display(" + "); holdingArea("+") });
-minus.addEventListener('click', function () { display(" - "); holdingArea("-") });
-divide.addEventListener('click', function () { display(" / ");; holdingArea("/") });
-multiply.addEventListener('click', function () { display(" x "); holdingArea("x") });
-equals.addEventListener('click', function () { display(" = "); holdingArea("=") });
+plus.addEventListener('click', function () { display(" + "); gatherValues("+") });
+minus.addEventListener('click', function () { display(" - "); gatherValues("-") });
+divide.addEventListener('click', function () { display(" / ");; gatherValues("/") });
+multiply.addEventListener('click', function () { display(" x "); gatherValues("x") });
+equals.addEventListener('click', function () { display(" = "); gatherValues("=") });
 
 let displayValue = 0;
 let operand1 = "";
 let operand2 = "";
 let operator = "";
-let holdingValueForNextOperation = 0;
+let runningTotal = 0;
 let firstTime = true;
+
 
 display(displayValue);
 
-function holdingArea(input) {
+function gatherValues(input) {
 
 
-    if (input == "+" || input == "-" || input == "x" || input == "/") {
+    if (input == "+" || input == "-" || input == "/" || input == "x") {
         operator = input;
-        console.log("Operator in holding area: " + operator);
-
     }
     else if (operator == "") {
-        operand1 += input;
-        console.log("Operand 1 in holding area: " + operand1);
-    }
-    else if (operator != "") {
+            operand1 += input;
+        }
+    else if (operator != "" && input != "+" && input != "-" && input != "/" && input != "x" && input != "=") {
+    
         operand2 += input;
-       //console.log("Operand 2 in holding area: " + operand2);
+
     }
+    
+
+
+    // Store all calculations prior to hitting equal sign
+    runningTotal = operate(operand1, operand2, operator);
+    
 
     if (input == "=") {
-
-        operate(operand1, operand2, operator);
-
+        display(runningTotal);
     }
-}
 
+
+}
 
 function operate(operand1, operand2, operator) {
 
+    console.log("Operator: " + operator);
+    console.log("Op1: " + operand1);
+    console.log("Op2: " + operand2);
+
     let x = parseInt(operand1);
     let y = parseInt(operand2);
+    let z = operator;
+    
 
-    if (operator == "+") {
-
-        display(sum(x, y));
+    if (z == "+") {
+        
+        return (sum(x, y));
     }
-    if (operator == "-") {
-
-        display(subtract(x, y));
+    if (z == "-") {
+        
+        return (subtract(x, y));
     }
-    if (operator == "/") {
-
-        display(division(x, y));
+    if (z == "/") {
+        
+        return (division(x, y));
     }
-    if (operator == "x") {
-
-        display(multiplication(x, y));
+    if (z == "x") {
+        
+        return (multiplication(x, y));
     }
 }
 
@@ -112,14 +122,18 @@ function display(inputValue) {
     displayContainer.innerText = (displayValue)
 }
 
+function empty(){
+    operand1 = "";
+    operand2 = "";
+    operator = "";
+}
+
 // Set display value to 0 if clear button is pressed
 function clearAll() {
-
-    display("clear");
-    operand1 = 0;
-    operand2 = 0;
+    display(displayValue = 0);
+    operand1 = "";
+    operand2 = "";
     operator = "";
-    displayContainer.innerText = (0)
 }
 
 // Sum funtion
