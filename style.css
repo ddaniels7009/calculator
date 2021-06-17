@@ -55,7 +55,7 @@ body {
 
 button{
     background-color: #89929721;
-    margin: 0;
+    
     height: 33px;
     width: 85px;
     border-style: solid;
@@ -67,4 +67,6 @@ button{
 button:hover {
     cursor: pointer;
     background-color: snow;
+    transform: scale(1.02);
+    
 }
