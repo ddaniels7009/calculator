@@ -40,78 +40,138 @@ let displayValue = 0;
 let operand1 = "";
 let operand2 = "";
 let operator = "";
+let operator2 = "";
 let runningTotal = 0;
 let firstTime = true;
-
+let operatorCount = 0;
+let holdMe = 0;
 
 display(displayValue);
 
 function gatherValues(input) {
 
-
+    // Check if input is an operator. If it is, set the operator and add 1 to the operator count
     if (input == "+" || input == "-" || input == "/" || input == "x") {
+       
         operator = input;
+        operatorCount++;
+        
+        
+        //console.log("Operator : " + operator);
     }
-    else if (operator == "") {
-            operand1 += input;
-        }
-    else if (operator != "" && input != "+" && input != "-" && input != "/" && input != "x" && input != "=") {
     
+ 
+
+    // check if operator is the same as last time. **********************
+    
+
+
+    // Check if the first operand has already been set. If it hasn't, set the operand based on user input until another operator is entererd
+    if (operator == "" && firstTime == true) {
+
+        operand1 += input;
+
+
+    }
+
+    //set the first operand to the running total in order to run the next operation
+    if (firstTime == false) {
+       operand1 = runningTotal;
+        console.log("wtf" + operand1);
+    }
+
+    // Set the second operand as long as the first operand has been set and the input is not an operator
+    if (operator != "" && input != "+" && input != "-" && input != "/" && input != "x" && input != "=") {
+
         operand2 += input;
 
     }
-    
+
 
 
     // Store all calculations prior to hitting equal sign
-    runningTotal = operate(operand1, operand2, operator);
+    if (operatorCount == 2 || input == "=" && firstTime == true) {
+
+        console.log("Before Operator: " + operator);
+        console.log("Before Op1: " + operand1);
+        console.log("Before Op2: " + operand2);
+
+
+        runningTotal = operate(operand1, operand2, operator);
+        //operand1 = runningTotal;
+
+    }
+
+
+    if (firstTime == false) {
+        operand1 = runningTotal;
     
+        console.log("wtf" + operand1);
+    }
 
     if (input == "=") {
-        display(runningTotal);
+
+        display(runningTotal, "equals");
     }
 
 
 }
 
+function setO(xxx){
+
+}
+
+function clearOperand() {
+    operand2 = "";
+    operatorCount--;
+    firstTime = false;
+
+}
+
+
 function operate(operand1, operand2, operator) {
 
-    console.log("Operator: " + operator);
-    console.log("Op1: " + operand1);
-    console.log("Op2: " + operand2);
 
-    let x = parseInt(operand1);
-    let y = parseInt(operand2);
+    console.log("After Operator: " + operator);
+    console.log("After Op1: " + operand1);
+    console.log("After Op2: " + operand2);
+
+    let x = parseFloat(operand1);
+    let y = parseFloat(operand2);
     let z = operator;
-    
+
+    clearOperand();
 
     if (z == "+") {
-        
+
         return (sum(x, y));
     }
     if (z == "-") {
-        
+
         return (subtract(x, y));
     }
     if (z == "/") {
-        
+
         return (division(x, y));
     }
     if (z == "x") {
-        
+
         return (multiplication(x, y));
     }
 }
 
 // Set display value based on user's button presses
-function display(inputValue) {
+function display(inputValue, equals) {
 
     if (inputValue == "clear") {
         displayValue = 0;
         inputValue = 0;
     }
 
-    if (displayValue == 0) {
+    else if (displayValue == 0) {
+        displayValue = inputValue;
+    }
+    else if (equals == "equals") {
         displayValue = inputValue;
     }
     else {
@@ -122,7 +182,7 @@ function display(inputValue) {
     displayContainer.innerText = (displayValue)
 }
 
-function empty(){
+function empty() {
     operand1 = "";
     operand2 = "";
     operator = "";
@@ -134,6 +194,8 @@ function clearAll() {
     operand1 = "";
     operand2 = "";
     operator = "";
+    runningTotal = 0;
+    firstTime = true;
 }
 
 // Sum funtion
