@@ -60,7 +60,7 @@ if(firstTime==true && Number.isInteger(parseInt(input))) {
 
 
 // set the initital operator
-if(input == "+" && firstTime == true){
+if((input == "+"  || input == "-" || input == "/" || input == "x") && firstTime == true){
     operators[count] = input;
     //console.log("Operator: " + operators[count]);
     firstTime=false;
@@ -68,17 +68,19 @@ if(input == "+" && firstTime == true){
     operatorCount++;
     operatorPresent = true;
 }
-else if (input == "+" && firstTime == false) {
+
+
+else if ((input == "+" || input == "-" || input == "/" || input == "x") && firstTime == false) {
     operators[count] = input;
     count++;
     operatorCount++;
 }
 
-else if(operatorCount > 0 && input != "+" && input != "=" && operand1 != "" && Number.isInteger(parseInt(input))){
+else if(operatorCount > 0 && (input != "+" && input != "-" && input != "/" && input != "x") && input != "=" && operand1 != "" && Number.isInteger(parseInt(input))){
     operand2 += input;
     //console.log("Operand 2: " + operand2)
 }
-else if(operatorPresent==true && operatorCount == 0 && input != "+" && input != "=" && operand1 != "" && Number.isInteger(parseInt(input))){
+else if(operatorPresent==true && operatorCount == 0 && (input != "+" && input!= "-" && input!= "/" && input!= "x") && input != "=" && operand1 != "" && Number.isInteger(parseInt(input))){
     operand2 += input;
     //console.log("Operand 2: " + operand2)
 }
@@ -94,11 +96,11 @@ displayEquals(result);
 }
 
 // Operate if user puts a second operator
-if(input == "+" && operand2 != "" && operators[count-1] != undefined){// CHANGE BACK TO "2" IF ERRORS!!!!!!
+if((input == "+" || input == "-" || input == "/" || input == "x") && operand2 != "" && operators[count-1] != undefined){// CHANGE BACK TO "2" IF ERRORS!!!!!!
     console.log("fuck")
     console.log("operand1::" + operand1)
     console.log("op coint" + operatorCount)
-    result = operate(operand1, operand2, operators[count-1]);
+    result = operate(operand1, operand2, operators[count-2]);
     operand1 = result;
     
 }
@@ -208,4 +210,8 @@ function multiplication(operand1, operand2) {
 
     return operand1 * operand2;
 
+}
+
+function functionality(){
+    alert("Button functionality has not yet been added.")
 }
