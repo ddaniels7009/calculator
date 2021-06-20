@@ -78,7 +78,7 @@ function setOperand(input) {
         count++;
         operatorCount++;
         operatorPresent = true;
-        setError();
+        
     }
 
     else if ((input == "+" || input == "-" || input == "/" || input == "x") && firstTime == false) {
@@ -89,12 +89,12 @@ function setOperand(input) {
 
     else if (operatorCount > 0 && (input != "+" && input != "-" && input != "/" && input != "x") && input != "=" && operand1 != "" && Number.isInteger(parseInt(input))) {
         operand2 += input;
-        setError();
+        
 
     }
     else if (operatorPresent == true && operatorCount == 0 && (input != "+" && input != "-" && input != "/" && input != "x") && input != "=" && operand1 != "" && Number.isInteger(parseInt(input))) {
         operand2 += input;
-        setError();
+        
 
     }
 
@@ -109,10 +109,7 @@ function setOperand(input) {
         operand1 = result;
         displayEquals(result);
 
-        if (result == 0) { // If user tried to divide by zero, clear all
-            clearAll();
-            errorDialogText.innerHTML = "Why would you do that to me? I thought we were friends."
-        }
+        
     }
 
     // Operate if user puts a second operator
