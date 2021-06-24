@@ -120,6 +120,12 @@ function setOperand(input) {
     // Operate if user inputs an '=' sign
     if (input == "=") {
 
+        if(operand1-operand2 == 0 && (operators[count - 1] == "-")){
+            clearAll();
+            
+            return;
+        }
+
         if(operators[0]==undefined){
             clearAll();
             return;
@@ -197,9 +203,10 @@ function operate(operand1, operand2, operators) {
     }
     if (z == "-") {
 
-        if(operand1 - operand2 == 0){
+         if(x - y == 0 && (input == "=")){
             clearAll();
-        }
+            return;
+        } 
 
         return (subtract(x, y));
     }
