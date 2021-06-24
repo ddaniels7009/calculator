@@ -56,6 +56,8 @@ let result = 0;
 let count = 0;
 let firstTime = true;
 
+let lastOperator="";
+
 let operatorCount = 0;
 let operatorPresent = false;
 
@@ -230,24 +232,34 @@ function operate(operand1, operand2, operators) {
 // Set display value based on user's button presses
 function display(inputValue) {
  
+
     if((inputValue == " + " || inputValue == " - " ||inputValue == " / " || inputValue == " x ") && (operand1 == "")&& firstTime == true){
         return 0;
+    }
+    if((inputValue == " + " || inputValue == " - " ||inputValue == " / " || inputValue == " x ")){
+        if(lastOperator == " + " || lastOperator == " - " || lastOperator == " / " || lastOperator == " x "){
+            return;
+        }
     }
 
     if (inputValue == "clear") {
         displayValue = 0;
         inputValue = 0;
+        
     }
     else if (displayValue == 0) {
         displayValue = inputValue;
+        
 
     }
     else if (displayValue == 0 && operand1 == 0) {
         displayValue += inputValue;
+        
 
     }
     else if (displayValue == 0 && operand1 != "") {
         displayValue += inputValue;
+        
     }
     
    
@@ -259,6 +271,7 @@ function display(inputValue) {
 
     else {
         displayValue += inputValue;
+        lastOperator = inputValue;
     }
 
 
