@@ -106,14 +106,14 @@ function setOperand(input) {
         
     }
    
-    else if (((operatorPresent == true) && (operatorCount == 0) && (input != "+") && (input != "-") && (input != "/") && (input != "x") && (input != "="))){ //&& (operand1 != ""))) {
+    else if (((operatorPresent == true) && (operatorCount == 0) && (input != "+") && (input != "-") && (input != "/") && (input != "x") && (input != "="))){ 
         
         operand2 += input;
         
         
 
     } 
-    else if (((operatorPresent == true) && (operatorCount == 1) && (input != "+") && (input != "-") && (input != "/") && (input != "x") && (input != "="))){ //&& (operand1 != ""))) {
+    else if (((operatorPresent == true) && (operatorCount == 1) && (input != "+") && (input != "-") && (input != "/") && (input != "x") && (input != "="))){ 
         operand2 += input;
         
 
@@ -141,7 +141,7 @@ function setOperand(input) {
         result = operate(operand1, operand2, operators[count - 1]);
         operand1 = result;
         displayEquals(result);
-
+        console.log("Result: " + result);
         
     }
    
@@ -150,6 +150,7 @@ function setOperand(input) {
     if ((input == "+" || input == "-" || input == "/" || input == "x") && operand2 != "" && operators[count - 1] != undefined) {
         result = operate(operand1, operand2, operators[count - 2]);
         operand1 = result;
+        
 
     }
 
@@ -189,9 +190,10 @@ function setError(){
 function operate(operand1, operand2, operators) {
 
 
-    console.log("After Operator: " + operators);
-    console.log("After Op1: " + operand1);
-    console.log("After Op2: " + operand2);
+    
+    console.log("Op1: " + operand1);
+    console.log("Operator: " + operators);
+    console.log("Op2: " + operand2);
 
     let x = parseFloat(operand1);
     let y = parseFloat(operand2);
